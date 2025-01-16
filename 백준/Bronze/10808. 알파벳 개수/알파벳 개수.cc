@@ -1,26 +1,14 @@
 #include <iostream>
-#include <map>
-
+#include <string>
 
 using namespace std;
 
-string text;
+int a[26]; string S;
+//'a' = 97
 
 int main() {
-    cin >> text;
-
-    string alphbet = "abcdefghijklmnopqrstuvwxyz";
-    map<char, int> mp;
-
-    for (int i = 0; i < alphbet.size(); i++) {
-        mp[alphbet[i]] = 0;
-    }
-    for (auto& t : text) {
-        mp[t]++;
-    }
-    for (const auto& m : mp) {
-        cout << m.second << " ";
-    }
-    
-    return 0;
+	cin >> S;
+	for (char i : S) a[i - 97]++;
+	for (int i : a) cout << i << " ";
+	return 0;
 }
