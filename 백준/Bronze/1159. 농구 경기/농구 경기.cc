@@ -1,24 +1,22 @@
 #include <iostream>
-#include <map>
+
 using namespace std;
 
-map<char, int> mp; int N; string name;
+int cnt[26]; int N; string name;
 int check;
 
 int main() {
 	cin >> N;
 	for (int i = 0; i < N; i++) {
 		cin >> name;
-		mp[name[0]]++;
+		cnt[name[0] - 'a']++;
 	}
-	for (auto it : mp) {
-		if (it.second >= 5) { 
+	for (int i = 0; i < 26; i++) {
+		if (cnt[i] >= 5) {
 			check = 1;
-			cout << it.first; 
+			cout << char(i + 'a');
 		}
 	}
-	if (check == 0) cout << "PREDAJA";
-
-
+	if (!check) cout << "PREDAJA";
 	return 0;
 }
