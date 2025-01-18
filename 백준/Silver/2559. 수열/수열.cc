@@ -14,7 +14,7 @@ int main() {
 		psum[i] = psum[i - 1] + tmp;
 	}
 	for (int i = K; i <= N; i++) {
-		if (total < psum[i] - psum[i - K]) total = psum[i] - psum[i - K];
+		total = max(total, psum[i] - psum[i - K]);
 	}
 	cout << total;
 	return 0;
