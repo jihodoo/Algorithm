@@ -1,31 +1,27 @@
 #include <iostream>
+#include <string>
 #include <map>
-#include <vector>
+
 using namespace std;
 
 int T;
 
 int main() {
-    cin >> T;
-    for (int i = 0; i < T; i++) {
-        map<string, int>mp;
-        int n;
-        cin >> n;
-        for (int i = 0; i < n; i++) {
-            string a, b;
-            cin >> a >> b;
-            if (mp.find(b) != mp.end()) {
-                mp[b]++;
-            }
-            else {
-                mp.insert({ b, 1 });
-            }
-        }
-        int ans = 1;
-        for (auto i : mp) {
-            ans *= (i.second+1);
-        }
-        cout << ans - 1 << "\n";        
-    }
-    return 0;
+	cin >> T;
+	for (int i = 0; i < T; i++) {
+		int n; string name, type;
+		map<string, int> mp;
+		cin >> n;
+		for (int i = 0; i < n; i++) {
+			cin >> name >> type;
+			mp[type]++;
+		}
+		int ret = 1;
+		for (auto it : mp) {
+			it.second += 1;
+			ret *= it.second;
+		}
+		cout << ret - 1 << "\n";
+	}
+	return 0;
 }
