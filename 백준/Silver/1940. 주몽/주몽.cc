@@ -1,23 +1,34 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int N, M;
+int a[15001];
 int cnt;
-vector<int> v;
+
+
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     cin >> N >> M;
     for (int i = 0; i < N; i++) {
-        int a;
-        cin >> a;
-        v.push_back(a);
+        cin >> a[i];
     }
-    for (int i = 0; i < N; i++) {
-        for (int j = i + 1; j < N; j++) {
-            int sum = v[i] + v[j];
-            if (sum == M) cnt++;
+    sort(a, a + N);
+
+    int l = 0, r = N - 1;
+    while (l < r) {
+        int sum = a[l] + a[r];
+        if (sum == M) {
+            cnt++;
+            l++;
+            r--;
         }
+        else if (sum < M) l++;
+        else r--;
     }
-    cout << cnt;
+
+    cout << cnt<<"\n";
     return 0;
 }
