@@ -1,50 +1,53 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 int N;
-const int V = 101;
-int a[V][V], visited[V][V], water[V][V];
-int dy[4] = { -1,0,1,0 };
-int dx[4] = { 0,1,0,-1 };
-int cnt, M;
+int a[101][101], visited[101][101];
+int dy[] = { -1,0,1,0 };
+int dx[] = { 0,1,0,-1 };
 
-void check(int y, int x) {
-	visited[y][x] = 1;
-	for (int i = 0; i < 4; i++) {
-		int ny = y + dy[i];
-		int nx = x + dx[i];
-		if (ny < 0 || ny >= N || nx < 0 || nx >= N) continue;
-		if (water[ny][nx] == 0 && visited[ny][nx] == 0) check(ny, nx);
-	}
+
+void check(int y, int x, int h) {
+    visited[y][x] = 1;
+    for (int i = 0; i < 4; i++) {
+        int ny = y + dy[i];
+        int nx = x + dx[i];
+        if (ny < 0 || ny >= N || nx < 0 || nx >= N) continue;
+        if (a[ny][nx] > h && visited[ny][nx] == 0) {
+            check(ny, nx, h);
+        }
+    }
+    return;
 }
 
 int main() {
-	cin >> N;
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			cin >> a[i][j]; 
-		}
-	}
-	for (int i = 0; i <= 100; i++) {
-		fill(&visited[0][0], &visited[0][0] + V * V, 0);
-		fill(&water[0][0], &water[0][0] + V * V, 0);
-		cnt = 0;
-		for (int j = 0; j < N; j++) {
-			for (int k = 0; k < N; k++) {
-				if (a[j][k] <= i) water[j][k] = 1;
-			}
-		}
-		for (int j = 0; j < N; j++) {
-			for (int k = 0; k < N; k++) {
-				if (water[j][k] == 0 && visited[j][k] == 0) {
-					check(j,k);
-					cnt++;
-				}
-			}
-		}
-		if (cnt > M) M = cnt;
-	}
-	cout << M;
+    cin >> N;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> a[i][j];
+        }
+    }
 
-	return 0;
+    int m = 0;
+    int cnt = 0;
+
+    for (int k = 0; k < 101; k++) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (a[i][j] > k && visited[i][j] == 0) {
+                    check(i, j, k);
+                    cnt++;
+                }
+            }
+        }
+        if (cnt > m) m = cnt;
+        cnt = 0;
+        memset(visited, 0, sizeof(visited));
+    }
+
+    cout << m;
+
+
+    return 0;
 }
